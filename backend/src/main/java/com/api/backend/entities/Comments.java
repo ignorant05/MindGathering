@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 public class Comments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long comment_id;
+	private Long comment_id;
 
 	@ManyToOne
 	@JoinColumn(name = "author_id", referencedColumnName = "uid")
@@ -58,6 +58,10 @@ public class Comments {
 
 	public void setUpdatedDate(Instant updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public Long getCid() {
+		return this.comment_id;
 	}
 
 	public Users getAuthor() {

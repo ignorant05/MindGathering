@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 public class Blogs {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long bid;
+	private Long bid;
 
 	@Column(nullable = false, unique = true)
 	private String title;
@@ -57,6 +57,10 @@ public class Blogs {
 
 	public void setUpdatedDate(Instant updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public Long getBid() {
+		return this.bid;
 	}
 
 	public Users getAuthor() {

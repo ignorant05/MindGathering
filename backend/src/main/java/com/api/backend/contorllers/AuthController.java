@@ -4,11 +4,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend.DTO.EditUserDTO;
@@ -17,6 +19,7 @@ import com.api.backend.DTO.UserDTO;
 import com.api.backend.services.UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "/api/v1/auth")
@@ -48,11 +51,32 @@ public class AuthController {
     }
   }
 
-  @GetMapping("/me")
+  @GetMapping("/profile")
   public ResponseEntity<?> profile(@RequestHeader("Authorization") String authHeader) {
     try {
       return ResponseEntity
           .ok(userServ.profileService(authHeader));
+    } catch (AuthenticationException authEx) {
+      throw new RuntimeException("Invalid username/password : \n" + authEx);
+    }
+  }
+
+  @GetMapping("/my/image")
+  public ResponseEntity<?> getMyPic(@RequestHeader("Authorization") String authHeader) {
+    try {
+      return ResponseEntity
+          .ok(userServ.getMyProfilePicture(authHeader));
+    } catch (AuthenticationException authEx) {
+      throw new RuntimeException("Invalid username/password : \n" + authEx);
+    }
+  }
+
+  @GetMapping("/users/{userId}/image")
+  public ResponseEntity<?> getUserPic(@RequestHeader("Authorization") String authHeader,
+      @PathVariable Long userId) {
+    try {
+      return ResponseEntity
+          .ok(userServ.getUserProfilePicture(authHeader, userId));
     } catch (AuthenticationException authEx) {
       throw new RuntimeException("Invalid username/password : \n" + authEx);
     }

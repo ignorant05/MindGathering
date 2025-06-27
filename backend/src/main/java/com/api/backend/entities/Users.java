@@ -33,6 +33,9 @@ public class Users {
   @Column(name = "password")
   public String password;
 
+  @Column(name = "profile_picture")
+  public Images image;
+
   @ManyToMany(cascade = CascadeType.REMOVE)
   @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
   @Column(name = "my_roles")

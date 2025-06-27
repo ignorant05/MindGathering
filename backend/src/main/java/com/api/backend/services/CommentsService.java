@@ -32,7 +32,7 @@ public class CommentsService {
     this.jwtUtils = jwtUtils;
   }
 
-  public ResponseEntity<?> newCommentService(String authHeader, CommentDTO dto, long blogId) {
+  public ResponseEntity<?> newCommentService(String authHeader, CommentDTO dto, Long blogId) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -74,7 +74,7 @@ public class CommentsService {
     }
   }
 
-  public ResponseEntity<?> editCommentService(String authHeader, CommentDTO dto, long commentId, long blogId) {
+  public ResponseEntity<?> editCommentService(String authHeader, CommentDTO dto, Long commentId, Long blogId) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -112,7 +112,7 @@ public class CommentsService {
     }
   }
 
-  public ResponseEntity<?> deleteCommentService(String authHeader, long commentId, long blogId) {
+  public ResponseEntity<?> deleteCommentService(String authHeader, Long commentId, Long blogId) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -201,7 +201,7 @@ public class CommentsService {
     }
   }
 
-  public ResponseEntity<?> countUserBlogsService(String authHeader, long author_id) {
+  public ResponseEntity<?> countUserBlogsService(String authHeader, Long author_id) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -282,7 +282,7 @@ public class CommentsService {
     }
   }
 
-  public ResponseEntity<?> getUserCommentsService(String authHeader, long author_id) {
+  public ResponseEntity<?> getUserCommentsService(String authHeader, Long author_id) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)

@@ -27,13 +27,15 @@ public class RefreshTokenUtils {
   public RefreshTokenUtils() {
   }
 
-  public String generateToken(String username) throws IllegalArgumentException {
+  public String generateToken(Long userId) throws IllegalArgumentException {
     Instant now = Instant.now();
     Instant expiryDate = now.plusSeconds(REFRESH_TOKEN_EXP);
 
+    String strId = userId.toString();
+
     return Jwts
         .builder()
-        .setSubject(username)
+        .setSubject(strId)
         .setIssuedAt(Date.from(now))
         .setExpiration(Date.from(expiryDate))
         .signWith(getSignInKey())

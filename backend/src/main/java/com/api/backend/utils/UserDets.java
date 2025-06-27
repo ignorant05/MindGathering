@@ -9,11 +9,8 @@ import com.api.backend.entities.Users;
 
 import org.springframework.security.core.GrantedAuthority;
 
-/**
- * UserDets
- */
 public class UserDets implements UserDetails {
-  private String username; // Changed from 'name' to 'email' for clarity
+  private String username;
   private String password;
   private String email;
   private String refresh_token;

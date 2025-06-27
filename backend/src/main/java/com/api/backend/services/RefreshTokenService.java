@@ -29,21 +29,21 @@ public class RefreshTokenService {
     this.userRepo = userRepo;
   }
 
-  public RefreshToken generateRefreshToken(String username) {
-    Users user = userRepo.findByUsername(username)
-        .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+  public RefreshToken generateRefreshToken(Long userId) {
+    Users user = userRepo.findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
     RefreshToken existingToken = refreshTokenRepo.findByUser(user).orElse(null);
 
     if (existingToken != null) {
-      existingToken.setRefreshToken(refreshTokenUtils.generateToken(username));
+      existingToken.setRefreshToken(refreshTokenUtils.generateToken(userId));
       existingToken.setIssuedAt(Instant.now());
       existingToken.setExpiryDate(Instant.now().plusMillis(REFRESH_TOKEN_EXP));
       return refreshTokenRepo.save(existingToken);
     }
 
     RefreshToken refresh_token = new RefreshToken();
-    String generatedToken = refreshTokenUtils.generateToken(username);
+    String generatedToken = refreshTokenUtils.generateToken(userId);
     refresh_token.setUser(user);
     refresh_token.setIssuedAt(Instant.now());
     refresh_token.setExpiryDate(Instant.now().plusMillis(REFRESH_TOKEN_EXP));

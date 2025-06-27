@@ -21,8 +21,6 @@ import com.api.backend.DTO.CommentDTO;
 import com.api.backend.services.BlogsService;
 import com.api.backend.services.CommentsService;
 
-import jakarta.websocket.server.PathParam;
-
 @RestController
 @RequestMapping(path = "/api/v1/users")
 public class UserController {
@@ -48,7 +46,7 @@ public class UserController {
     }
   }
 
-  @GetMapping("/get/blogs")
+  @GetMapping("/get/all/blogs")
   public ResponseEntity<?> getAllBlogs(@RequestHeader("Authorization") String authHeader) {
     try {
       return ResponseEntity
@@ -68,7 +66,7 @@ public class UserController {
     }
   }
 
-  @GetMapping("/count/blogs")
+  @GetMapping("/count/all/blogs")
   public ResponseEntity<?> countAllBlogs(@RequestHeader("Authorization") String authHeader) {
     try {
       return ResponseEntity
@@ -88,9 +86,9 @@ public class UserController {
     }
   }
 
-  @GetMapping("/count/my/blogs")
+  @GetMapping("/count/users/{userId}/blogs")
   public ResponseEntity<?> countUserBlogs(@RequestHeader("Authorization") String authHeader,
-      @RequestParam long userId) {
+      @PathVariable Long userId) {
     try {
       return ResponseEntity
           .ok(blogsServ.countUserBlogsService(authHeader, userId));
@@ -99,9 +97,9 @@ public class UserController {
     }
   }
 
-  @GetMapping("/get/users/blogs")
+  @GetMapping("/get/users/{userId}/blogs")
   public ResponseEntity<?> getUserBlogs(@RequestHeader("Authorization") String authHeader,
-      @RequestParam long userId) {
+      @PathVariable Long userId) {
     try {
       return ResponseEntity
           .ok(blogsServ.getUserBlogsService(authHeader, userId));
@@ -111,7 +109,7 @@ public class UserController {
   }
 
   @GetMapping("/get/blogs")
-  public ResponseEntity<?> getBlog(@RequestHeader("Authorization") String authHeader, @RequestParam long blogId) {
+  public ResponseEntity<?> getBlog(@RequestHeader("Authorization") String authHeader, @RequestParam Long blogId) {
     try {
       return ResponseEntity
           .ok(blogsServ.viewBlogService(authHeader, blogId));
@@ -132,7 +130,7 @@ public class UserController {
 
   @PutMapping("/update/blogs")
   public ResponseEntity<?> editBlog(@RequestHeader("Authorization") String authHeader, @RequestBody BlogDTO dto,
-      @RequestParam long blogId) {
+      @RequestParam Long blogId) {
     try {
       return ResponseEntity
           .ok(blogsServ.editBlogService(authHeader, dto, blogId));
@@ -142,7 +140,7 @@ public class UserController {
   }
 
   @DeleteMapping("/delete/blogs")
-  public ResponseEntity<?> deleteBlog(@RequestHeader("Authorization") String authHeader, @RequestParam long blogId) {
+  public ResponseEntity<?> deleteBlog(@RequestHeader("Authorization") String authHeader, @RequestParam Long blogId) {
     try {
       return ResponseEntity
           .ok(blogsServ.deleteBlogService(authHeader, blogId));
@@ -203,7 +201,7 @@ public class UserController {
 
   @GetMapping("/get/users/{userId}/blogs")
   public ResponseEntity<?> getUserComments(@RequestHeader("Authorization") String authHeader,
-      @PathVariable long userId) {
+      @PathVariable Long userId) {
     try {
       return ResponseEntity
           .ok(commentsServ.getUserCommentsService(authHeader, userId));
@@ -214,7 +212,7 @@ public class UserController {
 
   @PostMapping("/create/blogs/{blogId}/comment")
   public ResponseEntity<?> newComment(@RequestHeader("Authorization") String authHeader, @RequestBody CommentDTO dto,
-      @PathVariable long blogId) {
+      @PathVariable Long blogId) {
     try {
       return ResponseEntity
           .ok(commentsServ.newCommentService(authHeader, dto, blogId));
@@ -225,7 +223,7 @@ public class UserController {
 
   @PutMapping("/update/blogs/{blogId}/comments")
   public ResponseEntity<?> editComment(@RequestHeader("Authorization") String authHeader, @RequestBody CommentDTO dto,
-      @PathVariable long blogId, @RequestParam long commentId) {
+      @PathVariable Long blogId, @RequestParam Long commentId) {
     try {
       return ResponseEntity
           .ok(commentsServ.editCommentService(authHeader, dto, blogId, commentId));
@@ -235,8 +233,8 @@ public class UserController {
   }
 
   @DeleteMapping("/delete/blogs/{blogId}/comments")
-  public ResponseEntity<?> deleteComment(@RequestHeader("Authorization") String authHeader, @PathVariable long blogId,
-      @RequestParam long commentId) {
+  public ResponseEntity<?> deleteComment(@RequestHeader("Authorization") String authHeader, @PathVariable Long blogId,
+      @RequestParam Long commentId) {
     try {
       return ResponseEntity
           .ok(commentsServ.deleteCommentService(authHeader, blogId, commentId));

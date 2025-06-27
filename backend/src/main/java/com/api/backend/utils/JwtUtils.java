@@ -24,13 +24,15 @@ public class JwtUtils {
   @Value("${access.token.expiration}")
   private int ACCESS_TOKEN_EXP;
 
-  public String generateToken(String username) throws IllegalArgumentException {
+  public String generateToken(Long userId) throws IllegalArgumentException {
     Instant now = Instant.now();
     Instant expiryDate = now.plusSeconds(ACCESS_TOKEN_EXP);
 
+    String strId = userId.toString();
+
     return Jwts
         .builder()
-        .setSubject(username)
+        .setSubject(strId)
         .setIssuedAt(Date.from(now))
         .setExpiration(Date.from(expiryDate))
         .signWith(getSignInKey())

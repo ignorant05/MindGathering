@@ -91,7 +91,7 @@ public class BlogsService {
     }
   }
 
-  public ResponseEntity<?> editBlogService(String authHeader, BlogDTO dto, long blogId) {
+  public ResponseEntity<?> editBlogService(String authHeader, BlogDTO dto, Long blogId) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -126,7 +126,7 @@ public class BlogsService {
     }
   }
 
-  public ResponseEntity<?> deleteBlogService(String authHeader, long blogId) {
+  public ResponseEntity<?> deleteBlogService(String authHeader, Long blogId) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -208,7 +208,7 @@ public class BlogsService {
     }
   }
 
-  public ResponseEntity<?> countUserBlogsService(String authHeader, long author_id) {
+  public ResponseEntity<?> countUserBlogsService(String authHeader, Long author_id) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -289,7 +289,7 @@ public class BlogsService {
     }
   }
 
-  public ResponseEntity<?> getUserBlogsService(String authHeader, long author_id) {
+  public ResponseEntity<?> getUserBlogsService(String authHeader, Long author_id) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
@@ -316,7 +316,7 @@ public class BlogsService {
     }
   }
 
-  public ResponseEntity<?> viewBlogService(String authHeader, long blog_id) {
+  public ResponseEntity<?> viewBlogService(String authHeader, Long blog_id) {
     try {
       String accessToken = authHeader.substring(7);
       boolean valid = accessToken != null && jwtUtils.validateJwtToken(accessToken)
