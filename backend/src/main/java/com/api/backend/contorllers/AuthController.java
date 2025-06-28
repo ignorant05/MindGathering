@@ -61,7 +61,7 @@ public class AuthController {
     }
   }
 
-  @GetMapping("/my/image")
+  @GetMapping("/get/my/image")
   public ResponseEntity<?> getMyPic(@RequestHeader("Authorization") String authHeader) {
     try {
       return ResponseEntity
@@ -71,7 +71,7 @@ public class AuthController {
     }
   }
 
-  @GetMapping("/users/{userId}/image")
+  @GetMapping("/get/users/{userId}/image")
   public ResponseEntity<?> getUserPic(@RequestHeader("Authorization") String authHeader,
       @PathVariable Long userId) {
     try {
